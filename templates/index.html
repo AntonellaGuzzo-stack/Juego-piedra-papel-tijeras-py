@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Piedra, Papel o Tijera</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Piedra, Papel o Tijera</h1>
+        <p class="subtitle">Versión web con Python + Flask</p>
+      </header>
+
+      <main>
+        {% if error %}
+        <div class="alert alert-error">
+          {{ error }}
+        </div>
+        {% endif %}
+
+        {% if resultado %}
+        <section class="resultado">
+          <h2>Resultado de la ronda</h2>
+          <p>
+            Tú elegiste:
+            <span class="badge badge-user">{{ eleccion_usuario }}</span>
+          </p>
+          <p>
+            La computadora eligió:
+            <span class="badge badge-pc">{{ eleccion_pc }}</span>
+          </p>
+
+          {% if resultado == "empate" %}
+          <p class="texto-resultado empate">Es un empate 🤝</p>
+          {% elif resultado == "ganaste" %}
+          <p class="texto-resultado ganaste">¡Ganaste! 🎉</p>
+          {% else %}
+          <p class="texto-resultado perdiste">Perdiste 😢</p>
+          {% endif %}
+        </section>
+        {% endif %}
+
+        <section class="panel-eleccion">
+          <h2>Elige tu jugada</h2>
+          <form method="post" class="botones-eleccion">
+            {% for opcion in opciones %}
+            <button class="boton-opcion" type="submit" name="eleccion" value="{{ opcion }}">
+              {{ opcion | capitalize }}
+            </button>
+            {% endfor %}
+          </form>
+        </section>
+      </main>
+
+      <footer>
+        <p>Hecho con 💻 Python &amp; Flask</p>
+      </footer>
+    </div>
+  </body>
+</html>
+
